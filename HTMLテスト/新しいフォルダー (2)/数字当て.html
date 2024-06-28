@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字当てゲーム</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+
+<h1>数字当てゲーム</h1>
+
+<p>1から100の範囲内の数字を当ててください！</p>
+
+<input type="number" id="guess" placeholder="数字を入力してください">
+<button onclick="checkGuess()">Guess</button>
+
+<p id="message"></p>
+
+<script>
+    // ランダムな数を生成
+    const targetNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+
+    function checkGuess() {
+        const guessInput = document.getElementById('guess');
+        const guess = parseInt(guessInput.value);
+        const messageElement = document.getElementById('message');
+
+        if (isNaN(guess) || guess < 1 || guess > 100) {
+            messageElement.textContent = "1から100の数字を入力してください。";
+            return;
+        }
+
+        attempts++;
+
+        if (guess < targetNumber) {
+            messageElement.textContent = "もっと大きな数です。";
+        } else if (guess > targetNumber) {
+            messageElement.textContent = "もっと小さな数です。";
+        } else {
+            messageElement.textContent = `おめでとうございます！${targetNumber}を当てました！`;
+            messageElement.style.color = 'green';
+            messageElement.style.fontWeight = 'bold';
+            messageElement.insertAdjacentHTML('beforeend', `<br>試行回数: ${attempts}`);
+            guessInput.disabled = true;
+        }
+    }
+</script>
+
+</body>
+</html>

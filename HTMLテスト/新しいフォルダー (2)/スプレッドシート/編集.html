@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>スプレッドシートデータ編集</title>
+    <script>
+        function updateData(row, column, value) {
+            var url = "https://script.google.com/macros/s/AKfycbyG3T7awFgQ_doMF8sGfFkNtV9Q8GjNiunXw5IuA-wA7Lt0vJIW8eA_nPbwL8-GceI/exec";
+            var formData = {
+                "row": row,
+                "column": column,
+                "value": value
+            };
+
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("Data updated successfully");
+                    // データの更新後に何か処理を実行する場合はここに記述
+                } else {
+                    console.error("Failed to update data");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <button onclick="updateData(1, 1, 'New Value')">セルのデータを更新</button>
+</body>
+</html>

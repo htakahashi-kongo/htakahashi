@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>スプレッドシートへの書き込みと確認</title>
+</head>
+<body>
+  <h1>スプレッドシートにデータを書き込む</h1>
+  <form id="dataForm">
+    <label for="name">名前:</label>
+    <input type="text" id="name" name="name"><br><br>
+    <label for="email">メールアドレス:</label>
+    <input type="email" id="email" name="email"><br><br>
+    <button type="submit">送信</button>
+  </form>
+
+  <h1>スプレッドシートのデータを確認</h1>
+  <div id="dataTable"></div>
+
+  <script>
+    // 書き込みフォームのイベントリスナー
+    document.getElementById("dataForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      var formData = new FormData(this);
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://script.google.com/macros/s/AKfycbwcqmQcshdPurOBF3dcqMtNWJ4n37Q4Mq1wVyW9Wn2lmxLH6JojXVZQRn5gD3-oy7vj/exec");
+      xhr.send(formData);
+      alert("送信されました！");
+    });
+
+    // スプレッドシートのデータを取得して表示する関数
+    function displayData() {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          if (xhr.status == 200) {
+            document.getElementById("dataTable").innerHTML = xhr.responseText;
+          } else {
+            console.log("エラーが発生しました。");
+          }
+        }
+      };
+      xhr.open("GET", "https://script.google.com/macros/s/AKfycbwcqmQcshdPurOBF3dcqMtNWJ4n37Q4Mq1wVyW9Wn2lmxLH6JojXVZQRn5gD3-oy7vj/exec", true);
+      xhr.send();
+    }
+
+    // ページ読み込み時にスプレッドシートのデータを表示
+    window.onload = function() {
+      displayData();
+    };
+  </script>
+</body>
+</html>

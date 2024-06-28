@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToDoリスト</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    #tasks-container {
+        margin-top: 20px;
+    }
+    .task {
+        margin-bottom: 10px;
+    }
+    .completed {
+        text-decoration: line-through;
+    }
+</style>
+</head>
+<body>
+
+<h1>ToDoリスト</h1>
+
+<input type="text" id="taskInput" placeholder="新しいタスクを入力">
+<button onclick="addTask()">追加</button>
+
+<div id="tasks-container">
+    <!-- タスクが追加される要素 -->
+</div>
+
+<script>
+    function addTask() {
+        const taskInput = document.getElementById('taskInput');
+        const taskText = taskInput.value.trim();
+
+        if (taskText === '') {
+            alert('タスクを入力してください！');
+            return;
+        }
+
+        const taskContainer = document.getElementById('tasks-container');
+        const taskElement = document.createElement('div');
+        taskElement.classList.add('task');
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.addEventListener('change', function() {
+            if (checkbox.checked) {
+                taskTextElement.classList.add('completed');
+            } else {
+                taskTextElement.classList.remove('completed');
+            }
+        });
+
+        const taskTextElement = document.createElement('span');
+        taskTextElement.textContent = taskText;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = '削除';
+        deleteButton.addEventListener('click', function() {
+            taskElement.remove();
+        });
+
+        taskElement.appendChild(checkbox);
+        taskElement.appendChild(taskTextElement);
+        taskElement.appendChild(deleteButton);
+
+        taskContainer.appendChild(taskElement);
+
+        taskInput.value = ''; // 入力フィールドを空にする
+    }
+</script>
+
+</body>
+</html>

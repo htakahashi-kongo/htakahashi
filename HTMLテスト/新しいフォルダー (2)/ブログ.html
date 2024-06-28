@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ブログ投稿フォーム</title>
+</head>
+<body>
+    <h1>ブログ投稿フォーム</h1>
+    <form id="blogForm">
+        <label for="title">タイトル:</label><br>
+        <input type="text" id="title" name="title" required><br>
+        <label for="content">内容:</label><br>
+        <textarea id="content" name="content" rows="4" required></textarea><br>
+        <button type="submit">投稿</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('blogForm');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const formDataObject = {};
+            formData.forEach((value, key) => {
+                formDataObject[key] = value;
+            });
+
+            saveToSpreadsheet(formDataObject);
+            this.reset();
+        });
+
+        function saveToSpreadsheet(data) {
+            const url = https://script.google.com/a/macros/kongomail.com/s/AKfycbyMpgJuj-x7Zg2IertRSGYgCF4KmCQ7PAOYRrbQ76lvpSIfUo4VuAtOnOxEx3_QK5UBTA/exec;
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            fetch(url, options)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Data sent successfully:', data);
+                    // Optionally, show a success message to the user
+                })
+                .catch(error => {
+                    console.error('Error while sending data:', error);
+                    // Optionally, show an error message to the user
+                });
+        }
+    </script>
+</body>
+</html>

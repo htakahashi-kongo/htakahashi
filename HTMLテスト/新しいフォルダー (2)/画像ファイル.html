@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スプライトシートの例</title>
+    <style>
+        .sprite {
+            background-image: url('spritesheet.png');
+            width: 32px; /* 画像の幅 */
+            height: 32px; /* 画像の高さ */
+        }
+
+        /* 各画像の位置を指定 */
+        .item1 {
+            background-position: 0 0;
+        }
+        .item2 {
+            background-position: -32px 0; /* 1つ目の画像の幅分左にずらす */
+        }
+        .item3 {
+            background-position: -64px 0; /* 2つ目の画像の幅分左にずらす */
+        }
+    </style>
+</head>
+<body>
+    <div class="sprite item1"></div>
+    <div class="sprite item2"></div>
+    <div class="sprite item3"></div>
+</body>
+</html>

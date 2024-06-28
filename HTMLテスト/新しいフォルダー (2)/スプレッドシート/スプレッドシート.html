@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>スプレッドシートへの書き込み</title>
+</head>
+<body>
+  <h1>スプレッドシートにデータを書き込む</h1>
+  <form id="dataForm">
+    <label for="name">名前:</label>
+    <input type="text" id="name" name="name"><br><br> 
+    <label for="email">メールアドレス:</label>
+    <input type="email" id="email" name="email"><br><br>
+    <button type="submit">送信</button>
+  </form>
+
+  <script>
+    document.getElementById("dataForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      var formData = new FormData(this);
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://script.google.com/macros/s/AKfycbybj-YyoZUg8PXsdstHhmMP5rm7aaK7Lm33ZeQo-yyX266M4_Ma01CFW8gZO3m8LH-P/exec");
+      xhr.send(formData);
+      alert("送信されました！");
+    });
+  </script>
+</body>
+
+<sub>   
+
+</sub>
+</html>
